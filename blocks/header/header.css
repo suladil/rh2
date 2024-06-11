@@ -1,17 +1,23 @@
 /* header and nav layout */
 header .nav-wrapper {
-	background-color: var(--background-color);
+	background: var(--nav-gradient);
+	color: var(--light-color);
 	width: 100%;
 	z-index: 2;
-	position: fixed;
+	position: absolute;
+	transition: background-color 500ms ease-in-out 0s;
+  }
+
+  header .nav-wrapper:hover {
+	background: var(--light-color);
+	transition: background-color 500ms ease-in-out 0s;
+	color: var(--dark-color);
   }
   
   header nav#nav {
 	box-sizing: border-box;
 	display: grid;
-	grid-template:
-	  "hamburger brand tools" var(--nav-height)
-	  "sections sections sections" 1fr / auto 1fr auto;
+	grid-template-columns: repeat(8, 1fr);
 	align-items: center;
 	gap: 0 2em;
 	margin: auto;
@@ -22,11 +28,6 @@ header .nav-wrapper {
   }
   
   header nav#nav[aria-expanded="true"] {
-	grid-template:
-	  "hamburger brand" var(--nav-height)
-	  "sections sections" 1fr
-	  "tools tools" var(--nav-height) / auto 1fr;
-	overflow-y: auto;
 	min-height: 100vh;
   }
   
@@ -35,19 +36,7 @@ header .nav-wrapper {
 	  padding: 0 2rem;
 	}
   }
-  
-  @media (width >= 900px) {
-	header nav#nav {
-	  display: flex;
-	  justify-content: space-between;
-	}
-  
-	header nav#nav[aria-expanded="true"] {
-	  min-height: 0;
-	  overflow: visible;
-	}
-  }
-  
+    
   header nav#nav p {
 	margin: 0;
 	line-height: 1;
@@ -60,7 +49,8 @@ header .nav-wrapper {
   
   /* hamburger */
   header nav#nav .nav-hamburger {
-	grid-area: hamburger;
+	grid-column: 1/ span 1;
+	grid-row: 1;
 	height: 22px;
 	display: flex;
 	align-items: center;
@@ -72,7 +62,7 @@ header .nav-wrapper {
 	border: 0;
 	border-radius: 0;
 	padding: 0;
-	background-color: var(--background-color);
+	background-color: transparent;
 	color: inherit;
 	overflow: initial;
 	text-overflow: initial;
@@ -131,40 +121,50 @@ header .nav-wrapper {
 	bottom: 3px;
 	transform: rotate(-45deg);
   }
-  
-  @media (width >= 900px) {
-	header nav#nav .nav-hamburger {
-	  display: none;
-	  visibility: hidden;
-	}
-  }
-  
+    
   /* brand */
   header .nav-brand {
-	grid-area: brand;
-	flex-basis: 128px;
+	grid-column: 2/ span 7;
+	grid-row: 1;
 	font-size: var(--heading-font-size-s);
 	font-weight: 700;
 	line-height: 1;
+	border: solid 2px cyan;
   }
   
-  header nav#nav .nav-brand img {
+  header .nav-brand p:first-of-type {
+	border: solid 1px blue;
+	color: #D4D2CF;
+	border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+	width: fit-content;
+	font-size: 1.0833333333333333rem;
+    font-style: normal;
+	margin-left: 12px;
+    padding-left: 32px;
+	width: 134px;
+	/* border-radius: ; */
+  }
+
+  /* header nav#nav .nav-brand img {
 	width: 128px;
 	height: auto;
-  }
+  } */
   
   /* sections */
   header nav#nav .nav-sections {
-	grid-area: sections;
-	flex: 1 1 auto;
+	grid-row: 3;
+	grid-column: 1/ span 8;
+	/* flex: 1 1 auto; */
 	display: none;
 	visibility: hidden;
+	border: solid 2px orange;
   }
   
   header nav#nav[aria-expanded="true"] .nav-sections {
 	display: block;
 	visibility: visible;
 	align-self: start;
+	border: solid 2px lime;
   }
   
   header nav#nav .nav-sections ul {
@@ -172,6 +172,7 @@ header .nav-wrapper {
 	padding-left: 0;
 	font-size: var(--body-font-size-s);
 	font-weight: 500;
+
   }
   
   header nav#nav .nav-sections ul > li {
@@ -187,11 +188,11 @@ header .nav-wrapper {
   }
   
   @media (width >= 900px) {
-	header nav#nav .nav-sections {
+	/* header nav#nav .nav-sections {
 	  display: block;
 	  visibility: visible;
 	  white-space: nowrap;
-	}
+	} */
   
 	header nav#nav a:any-link {
 	  display: block;
@@ -276,16 +277,34 @@ header .nav-wrapper {
   
   /* tools */
   header nav#nav .nav-tools {
-	grid-area: tools;
+	grid-row: 2;
+	grid-column: 1/ span 8;
   }
   
-  header nav#nav .nav-tools .button {
-	background: none;
-	border: none;
-	padding: 10px;
-	margin: 0;
+  header nav#nav .nav-tools ul {
+	display: flex;
+	justify-content: space-between;
+	margin: 14px 0;
+	padding: 0;
   }
-  
+
+  header nav#nav .nav-tools ul li {
+	font-family: rhc-roman;
+	font-size: 13px;
+    letter-spacing: 0.05em;
+	font-weight: 400;
+    text-transform: uppercase;
+	padding: 8px 0 0 0;
+	margin-top: -8px;
+  }
+
+
+  header nav#nav .nav-tools ul li strong {
+	color: var(--sale-color) !important;
+	font-weight: normal;
+  }
+
+
   /* breadcrumbs */
   header .breadcrumbs {
 	display: none;
