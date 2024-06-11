@@ -12,12 +12,14 @@
 
 :root {
   /* colors */
-  --hover-color: #CCC;;
+  --link-color: #666666;
+  --hover-color: #CCC;
   --light-color: #ffffff;
   --dark-color: #000000;
   --secondary-color: #666;
   --sale-color: #CA2022;
   --background-color: #c4b5aa;
+  --nav-footer-background: #f9f7f4;
   --nav-gradient: linear-gradient(0deg, rgba(38, 22, 10, 0) 0%, rgb(38, 22, 10) 100%);
 
   /* fonts */
@@ -74,9 +76,9 @@ body.appear {
   display: block;
 }
 
-header {
+/* header {
   height: var(--nav-height);
-}
+} */
 
 h1, h2, h3,
 h4, h5, h6 {
