@@ -350,7 +350,8 @@ header .nav-wrapper {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	min-width: 100%;
+	min-width: calc(100vw - 4rem);
+	margin: 0 -2rem;
   }
 
   @media (width <= 1250px) {
@@ -398,13 +399,7 @@ header .nav-wrapper {
 	margin-top: 0;
   }
     
-  @media (width >= 900px) {
-	/* header nav#nav .nav-sections {
-	  display: block;
-	  visibility: visible;
-	  white-space: nowrap;
-	} */
-  
+  @media (width >= 900px) {  
 	header nav#nav a:any-link {
 	  display: block;
 	}
