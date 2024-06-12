@@ -1,0 +1,12 @@
+.image-list > div:first-of-type {
+	border: solid 2px orange;
+	display: none;
+	visibility: none;
+}
+
+.image-list > div > div > a  img {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}

@@ -13,30 +13,22 @@ export default async function decorate(block) {
     return 'an error occurred';
   }
 
-  const ul = document.createElement('ul');
+  const blockLink = block.querySelector('a');
+  const listData = await fetchJson(blockLink);
+  listData.forEach((image, idx) => {
+	const img = createOptimizedPicture(image.image, image.title, false, [{ width: 2500 }]);
+	img.lastElementChild.width = '1200';
+	img.lastElementChild.height = '1000';
+	
+	const createdSection = document.createElement('div');
+	createdSection.innerHTML = `
+	  <div class="image-list-item">
+	 	<a href=${image.link} target="_blank">
+	  		${img.outerHTML}
+		</a>
+	  </div>
+	`;
 
-    [...block.children].forEach((row) => {
-      const anchor = document.createElement('a');
-      anchor.href = '';
-      const li = document.createElement('li');
-      while (row.firstElementChild) li.append(row.firstElementChild);
-      [...li.children].forEach((div) => {
-        if (div.children.length === 1 && div.querySelector('a')) {
-          const linkURL = div.querySelector('a').innerHTML;
-          anchor.href = linkURL;
-          div.className = 'cards-hide-markdown';
-        } else if (div.children.length === 1 && div.querySelector('picture')) {
-          div.className = 'cards-card-image';
-        } else if (div.children.length === 1 && div.querySelector('span')) {
-          div.className = 'cards-card-icon';
-        } else {
-          div.className = 'cards-card-body';
-        }
-      });
-      anchor.append(li);
-      ul.append(anchor);
-    });
-
-  block.textContent = '';
-  block.append(ul);
+	block.append(createdSection);
+  })
 }
