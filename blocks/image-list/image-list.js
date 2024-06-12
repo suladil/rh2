@@ -14,7 +14,7 @@ export default async function decorate(block) {
 
   const blockLink = block.querySelector('a');
   const blockLinkWrapper = blockLink.closest('div').parentElement;
-  console.log(blockLinkWrapper);
+//   console.log(blockLinkWrapper);
 
   const isLookbook = block.classList.contains('lookbook-teasers');
 

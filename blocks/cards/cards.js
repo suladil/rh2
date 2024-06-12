@@ -1,8 +1,8 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
-  const isIconCards = block.classList.contains('icon');
-  const isArticleCards = block.classList.contains('articles');
+  const isLookbook = block.classList.contains('lookbook');
+  const link = block.querySelector('a'); 
 
   async function fetchJson(link) {
     const response = await fetch(link?.href);
@@ -17,50 +17,39 @@ export default async function decorate(block) {
 
   const ul = document.createElement('ul');
 
-  if (isIconCards) {
-    [...block.children].forEach((row) => {
-      const anchor = document.createElement('a');
-      anchor.href = '';
-      const li = document.createElement('li');
-      while (row.firstElementChild) li.append(row.firstElementChild);
-      [...li.children].forEach((div) => {
-        if (div.children.length === 1 && div.querySelector('a')) {
-          const linkURL = div.querySelector('a').innerHTML;
-          anchor.href = linkURL;
-          div.className = 'cards-hide-markdown';
-        } else if (div.children.length === 1 && div.querySelector('picture')) {
-          div.className = 'cards-card-image';
-        } else if (div.children.length === 1 && div.querySelector('span')) {
-          div.className = 'cards-card-icon';
-        } else {
-          div.className = 'cards-card-body';
-        }
-      });
-      anchor.append(li);
-      ul.append(anchor);
-    });
-  }
+	[...block.children].forEach((row) => {
+		const anchor = document.createElement('a');
+		anchor.href = '';
+		const li = document.createElement('li');
+		while (row.firstElementChild) li.append(row.firstElementChild);
+		[...li.children].forEach((div) => {
 
-  if (isArticleCards) {
-    const link = block.querySelector('a');
+		if (div.children.length === 1 && div.querySelector('picture')) {
+			div.className = 'cards-card-image';
+		} else if (div.children.length === 1 && div.querySelector('span')) {
+			div.className = 'cards-card-icon';
+		} else {
+			div.className = 'cards-card-body';
+		}
+		});
+		anchor.append(li);
+		ul.append(anchor);
+	});
+  
+  if (isLookbook) {
     const cardData = await fetchJson(link);
     cardData.forEach((item) => {
-      const picture = createOptimizedPicture(item.image, item.title, false, [{ width: 320 }]);
+      const picture = createOptimizedPicture(item.bookImage, item.bookTitle, false, [{ width: 320 }]);
       picture.lastElementChild.width = '320';
       picture.lastElementChild.height = '180';
+
       const createdCard = document.createElement('li');
+
       createdCard.innerHTML = `
-        <div class="cards-card-image">
-          <div data-align="center">${picture.outerHTML}</div>
-        </div>
         <div class="cards-card-body">
-          <h5>${item.title}</h5>
-          <p class="button-container">
             <a href="${item.url}" aria-label="${item['anchor-text']}" title="${item['anchor-text']}" class="button">
-              Read more 
-              <span class="card-arrow">
-                <img class="icon" src="/icons/chevron.svg" />
-              </span>
+			${picture.outerHTML}
+			<h5>${item.bookTitle}</h5>
             </a>
           </p>
         </div>
