@@ -206,10 +206,21 @@ header .nav-wrapper {
 	color: #D4D2CF;
   }
 
-  header nav#nav[aria-expanded="true"] .nav-brand ul .icon img,
-  header .nav-wrapper:hover .nav-brand ul .icon img,
-  header nav#nav[aria-expanded="true"] .nav-brand .icon img {
-	filter: none;
+  /* logo */
+  header nav#nav .nav-brand .icon-RH {
+	width: 75px;
+	height: 76px;
+	position: absolute;
+	top: 4px;
+	left: 50%;
+	transform: translateX(-50%);
+  }
+
+  header nav#nav .nav-brand .icon-RH img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
   }
 
   /* bag and account icons */
@@ -229,13 +240,11 @@ header .nav-wrapper {
 	height: 150%;
   }
 
-  header nav#nav .nav-brand .icon-logo {
-	width: 75px;
-	height: 76px;
-	position: absolute;
-	top: 4px;
-	left: 50%;
-	transform: translateX(-50%);
+  header nav#nav[aria-expanded="true"] .nav-brand ul .icon img,
+  header .nav-wrapper:hover .nav-brand ul .icon img,
+  header nav#nav[aria-expanded="true"] .nav-brand img,
+  header .nav-wrapper:hover .nav-brand .icon img {
+	filter: none !important;
   }
 
   @media (width <= 767px) {
