@@ -22,12 +22,12 @@ export default async function decorate(block) {
   listData.forEach(image => {
 	var img = '';
 	if(!isLookbook){
-		img = createOptimizedPicture(image.image, image.title, false, [{ width: 2500 }]);
+		img = createOptimizedPicture(image.image, image.title, false, [{ width: 5000 }]);
 	} else {
-		img = createOptimizedPicture(image.teaserImg, image.bookTitle, false, [{ width: 2500 }]);
+		img = createOptimizedPicture(image.teaserImg, image.bookTitle, false, [{ width: 5000 }]);
 	}
-	img.lastElementChild.width = '1200';
-	img.lastElementChild.height = '1000';
+	// img.lastElementChild.width = '5000';
+	// img.lastElementChild.height = '4500';
 
 	const createdSection = document.createElement('div');
 

@@ -47,9 +47,8 @@ export default async function decorate(block) {
 
       createdCard.innerHTML = `
         <div class="cards-card-body">
-            <a href="${item.url}" aria-label="${item['anchor-text']}" title="${item['anchor-text']}" class="button">
+            <a href="${item.teaserLink1}" aria-label="${item.bookTitle} sourcebook" title="${item.bookTitle} sourcebook" class="button">
 			${picture.outerHTML}
-			<h5>${item.bookTitle}</h5>
             </a>
           </p>
         </div>

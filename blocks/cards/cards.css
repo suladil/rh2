@@ -1,31 +1,91 @@
+main .section.lookbook-grid {
+	background-image: url(https://main--rh--adobedevxsc.hlx.live/images/background.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 48px 0;
+}
+
+main .section.lookbook-grid .default-content-wrapper:first-of-type h2 {
+	font-family: rh-sans-ultrathin;
+	text-transform: uppercase;
+	margin: 0 auto;
+	width: fit-content;
+	color: var(--light-color);
+	font-size: 52px;
+	letter-spacing: -0.04em;
+	font-weight: 100;
+}
+
+main .section.lookbook-grid .default-content-wrapper:first-of-type p {
+	font-family: rh-sans-ultrathin;
+	margin: 0 auto 24px;
+	width: fit-content;
+	font-size: 15px;
+	font-style: normal;
+	text-align: center;
+	font-weight: 100;
+	letter-spacing: 0.07em;
+	color: var(--light-color)
+}
+
+main .section.lookbook-grid .default-content-wrapper:last-of-type p:last-of-type {
+	width: fit-content;
+	margin: -10px auto 0;
+	height: 100%;
+}
+
+main .section.lookbook-grid .default-content-wrapper p > a {
+	margin: 0 auto 24px;
+	padding: 0;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 400;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	text-decoration: underline;
+	text-underline-position: under;
+	color: var(--light-color);
+	display: block;
+}
+
+/* books section */
 .cards > ul {
-  list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(278px, 1fr));
-  grid-gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards > ul > a {
+	display: none;
+	visibility: none;
 }
 
 .cards > ul > li {
-  border: 1px solid var(--dark-color);
-  background-color: var(--background-color)
+	width: 30%;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+
+.cards > ul > li > div {
+	width: 100%;
+	height: fit-content;
 }
 
-.cards .cards-card-image {
-  line-height: 0;
-}
-
-.cards .cards-card-body > *:first-child {
-  margin-top: 0;
+.cards > ul > li > div > a {
+	display: block !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 .cards > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  display: block;
   object-fit: cover;
+  margin-right: -5px;
 }
+
