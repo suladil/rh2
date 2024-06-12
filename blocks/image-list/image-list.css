@@ -1,5 +1,4 @@
 .image-list > div:first-of-type {
-	border: solid 2px orange;
 	display: none;
 	visibility: none;
 }
