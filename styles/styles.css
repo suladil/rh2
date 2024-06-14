@@ -12,10 +12,11 @@
 
 :root {
   /* colors */
-  --link-color: #666666;
-  --hover-color: #CCC;
+  --link-color: var(--light-color);
+  --link-hover-color: #cccccc;
   --light-color: #ffffff;
   --dark-color: #000000;
+  --secondary-dark-color: #666666;
   --sale-color: #CA2022;
   --background-color: #c4b5aa;
   --nav-footer-background: #f9f7f4;
@@ -127,10 +128,11 @@ main pre {
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
 a:hover {
-  text-decoration: underline;
   color: var(--link-hover-color);
 }
 
@@ -141,7 +143,6 @@ a.button:any-link, button {
   box-sizing: border-box;
   text-decoration: none;
   border: 2px solid transparent;
-  padding: 5px 30px;
   text-align: center;
   font-style: normal;
   cursor: pointer;
@@ -149,11 +150,18 @@ a.button:any-link, button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--light-color);
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
-  background-color: var(--link-hover-color);
+  background-color: transparent;
+  color: var(--link-hover-color);
   cursor: pointer;
+  text-decoration: underline;
+  text-underline-position: under;
+
 }
 
 button:disabled, button:disabled:hover {

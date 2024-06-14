@@ -42,9 +42,8 @@ main .section.lookbook-grid .default-content-wrapper p > a {
     font-weight: 400;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
-	text-decoration: underline;
-	text-underline-position: under;
-	color: var(--light-color);
+	/* text-decoration: underline;
+	text-underline-position: under; */
 	display: block;
 }
 

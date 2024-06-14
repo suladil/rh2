@@ -1,3 +1,1 @@
-export default function decorate(block) {
-
-  }
+// intentionally left blank

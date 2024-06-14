@@ -1,0 +1,103 @@
+.image-cta.background-gradient {
+	background-image: url(https://main--rh--adobedevxsc.hlx.live/images/background.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.image-cta.background-gradient > div {
+	max-width: 1200px;
+    margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.image-cta.background-gradient > div {
+	width: fit-content;
+	padding: 48px 2rem;
+}
+
+.image-cta.background-gradient h3 {
+	font-size: 64px;
+	font-style: normal;
+	text-align: left;
+	font-family: rh-sans-ultrathin;
+	font-weight: 100;
+	font-weight: normal;
+	text-transform: uppercase;
+	margin: 0;
+	line-height: 75%;
+	color: var(--light-color);
+}
+
+.image-cta.background-gradient h4 {
+	font-size: 48px;
+	font-style: normal;
+	text-align: left;
+	font-family: rh-sans-ultrathin;
+	font-weight: 100;
+	font-weight: normal;
+	text-transform: uppercase;
+	margin: 0 0 8px;
+	line-height: 80%;
+	color: var(--light-color);
+}
+
+.image-cta.background-gradient h3 sup,
+.image-cta.background-gradient h4 sup {
+	vertical-align: top;
+	line-height: 0.8;
+	font-size: 42px;
+}
+
+.image-cta.background-gradient h5 {
+	font-size: 20px;
+	font-style: normal;
+	text-align: left;
+	font-weight: normal;
+	text-transform: uppercase;
+	color: var(--light-color);
+	font-weight: 100;
+	font-family: rh-sans-ultrathin;
+	margin: 0;
+	line-height: 90%;
+}
+
+.image-cta.background-gradient h5:first-of-type {
+	margin-bottom: -12px;
+}
+
+.image-cta.background-gradient p {
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 100;
+	text-align: left;
+	font-family: rh-sans-ultrathin;
+	font-weight: normal;
+	line-height: 90%;
+	letter-spacing: -0.05em;
+	text-transform: uppercase;
+	color: var(--light-color);
+	margin: 0;
+}
+
+.image-cta.background-gradient p > sup {
+	margin-left: auto;
+    vertical-align: top;
+    line-height: 0.8;
+    font-size: 12px;
+}
+
+.image-cta.background-gradient a {
+    font-style: normal;
+    font-family: rh-sans;
+    line-height: 120%;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+	font-size: 13px;
+	margin: 20px 0 0;
+}

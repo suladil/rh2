@@ -35,6 +35,7 @@ export default async function decorate(block) {
 		if(image.featuredTeaser === 'true'){		
 			createdSection.innerHTML = `
 			<div class="image-list-item">
+			
 				<a href=${image.wrappingLink} target="_blank">
 					${img.outerHTML}
 					<div class="teaser-content">

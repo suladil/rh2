@@ -48,6 +48,7 @@ header .nav-wrapper {
   header nav#nav a:any-link {
 	color: currentcolor;
 	display: block;
+	text-decoration: none;
   }
   
   /* hamburger */

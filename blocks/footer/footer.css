@@ -26,11 +26,11 @@ footer .footer > div .section:first-of-type h3 {
 	font-weight: 100;
 	text-transform: uppercase;
 	font-size: 30px;
-	color: #666666;
+	color: var(--secondary-dark-color);
 }
 
 footer .footer > div .section:first-of-type p:first-of-type {
-	color: #666666;
+	color: var(--secondary-dark-color);
 	margin: 0px auto 16px;
 	font-size: 12px;
 	text-align: center;
@@ -94,7 +94,6 @@ footer .footer > div .section:nth-of-type(2) > div > ul {
 }
 
 footer .footer > div .section:nth-of-type(2) > div > ul > li {
-    color: #666666;
     text-transform: uppercase;
     font-size: 11.5px;
     font-family: rh-sans;
@@ -103,6 +102,11 @@ footer .footer > div .section:nth-of-type(2) > div > ul > li {
     letter-spacing: 0.04em;
 	margin-bottom: 16px;
 }
+
+footer .footer > div .section:nth-of-type(2) > div > ul > li > a {
+	color: var(--secondary-dark-color);
+	text-decoration: none;
+} 
 
 footer .footer > div .section:nth-of-type(2) > div > h4:first-of-type,
 footer .footer > div .section:nth-of-type(2) > div > ul:first-of-type {
