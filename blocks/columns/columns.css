@@ -1,6 +1,13 @@
 .columns > div {
   display: flex;
-  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  align-items: stretch;
+  justify-content: center;
+  width: 926px;
+  padding-top: 95px;
+  padding-bottom: 50px;
+  margin: 0 auto;
 }
 
 .columns img {
@@ -9,6 +16,37 @@
 
 .columns > div > div {
   order: 1;
+  flex-grow: 1;
+  max-width: 100%;
+  flex-basis: 0;
+}
+
+.columns > div > div:nth-of-type(2) p {
+	margin: 0;
+}
+
+.columns > div > div:nth-of-type(2) p:nth-of-type(2) {
+	font-size: 18px;
+	font-style: normal;
+	text-align: left;
+	font-weight: 100;
+	font-family: rh-sans-ultrathin;
+	text-transform: uppercase;
+	color: var(--light-color);
+	letter-spacing: -0.025em;
+	line-height: 1.43;
+}
+
+.columns > div > div:nth-of-type(2) p > a {
+	margin: 24px 0 0;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	font-style: normal;
+    font-size: 13px;
+	display: block;
+	text-align: left;
+	width: fit-content;
+	
 }
 
 .columns > div > .columns-img-col {
@@ -19,7 +57,8 @@
   display: block;
 }
 
-@media (width >= 900px) {
+
+/* @media (width >= 900px) {
   .columns > div {
     align-items: center;
     flex-direction: unset;
@@ -30,4 +69,57 @@
     flex: 1;
     order: unset;
   }
+} */
+
+@media (width <= 992px) {
+	.columns > div { 
+		width: 754px;
+		padding-top: 90px;
+		padding-bottom: 60px;
+		align-items: center;
+	}
+}
+
+@media (width <= 767px) {
+	.columns > div {
+		width: 582px;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+
+@media (width <= 500px) {
+	.columns > div {
+        width: 316px;
+		flex-direction: column;
+	}
+
+	.columns > div > div:nth-of-type(2) {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.columns > div > div:nth-of-type(2) p:first-of-type {
+		grid-column: 1/ span 4;
+	}
+
+	.columns > div > div:nth-of-type(2) p:nth-of-type(2) {
+		display: none;
+		visibility: none;
+	}
+
+	.columns > div > div:nth-of-type(2) p:nth-of-type(3) {
+		grid-column: 1/ span 2;
+	}
+
+	.columns > div > div:nth-of-type(2) p:nth-of-type(4) {
+		grid-column: 3/ span 2;
+		justify-self: flex-end;
+	}
+
+	.columns > div > div:nth-of-type(2) p:nth-of-type(3) a,
+	.columns > div > div:nth-of-type(2) p:nth-of-type(4) a {
+		font-size: 11px;
+	}
 }
