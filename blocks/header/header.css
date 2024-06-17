@@ -208,7 +208,7 @@ header .nav-wrapper {
   }
 
   /* logo */
-  header nav#nav .nav-brand .icon-RH {
+  header nav#nav .nav-brand > div > p:first-of-type {
 	width: 75px;
 	height: 76px;
 	position: absolute;
@@ -217,11 +217,16 @@ header .nav-wrapper {
 	transform: translateX(-50%);
   }
 
-  header nav#nav .nav-brand .icon-RH img {
+  header nav#nav .nav-brand > div > p:first-of-type:hover {
+	cursor: pointer;
+  }
+
+  header nav#nav .nav-brand > div > p:first-of-type img {
 	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+	filter: invert(99%) sepia(3%) saturate(134%) hue-rotate(344deg) brightness(117%) contrast(100%);
   }
 
   /* bag and account icons */
@@ -244,7 +249,8 @@ header .nav-wrapper {
   header nav#nav[aria-expanded="true"] .nav-brand ul .icon img,
   header .nav-wrapper:hover .nav-brand ul .icon img,
   header nav#nav[aria-expanded="true"] .nav-brand img,
-  header .nav-wrapper:hover .nav-brand .icon img {
+  header .nav-wrapper:hover .nav-brand > div > p:first-of-type img,
+  header nav#nav[aria-expanded="true"] .nav-brand > div > p:first-of-type img {
 	filter: none !important;
   }
 
