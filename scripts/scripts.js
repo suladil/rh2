@@ -30,9 +30,7 @@ import {
 	toClassName,
   };
 
-const LCP_BLOCKS = [
-	'hero'
-]; // add your LCP blocks to the list
+const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 const AUDIENCES = {
 	mobile: () => window.innerWidth < 600,
@@ -82,7 +80,28 @@ export function isBlockLibrary() {
   }
   
   /**
- * Convenience method for creating tags in one line of code
+   * TODO: Update
+   * @param {*} element
+   * @param {*} href
+   */
+  export function addVideo(element, href) {
+	element.innerHTML = `<video loop muted playsInline>
+	  <source data-src="${href}" type="video/mp4" />
+	</video>`;
+	const video = element.querySelector('video');
+	const source = element.querySelector('video > source');
+  
+	source.src = source.dataset.src;
+	video.load();
+	video.addEventListener('loadeddata', () => {
+	  video.setAttribute('autoplay', true);
+	  video.setAttribute('data-loaded', true);
+	  video.play();
+	});
+  }
+
+  /**
+ * Convience method for creating tags in one line of code
  * @param {string} tag Tag to create
  * @param {object} attributes Key/value object of attributes
  * @param {HTMLElement | HTMLElement[] | string} children Child element
@@ -109,50 +128,13 @@ export function createTag(tag, attributes, children) {
 	return element;
   }
 
-  /**
-   * @param {*} element
-   * @param {*} href
-   */
-  export function addVideo(element, href) {
-	element.innerHTML = `<video loop muted playsInline>
-	  <source data-src="${href}" type="video/mp4" />
-	</video>`;
-	const video = element.querySelector('video');
-	const source = element.querySelector('video > source');
-  
-	source.src = source.dataset.src;
-	video.load();
-	video.addEventListener('loadeddata', () => {
-	  video.setAttribute('autoplay', true);
-	  video.setAttribute('data-loaded', true);
-	  video.play();
-	});
-  }
-
-  export function makeVideo(element, href) {
-	element.innerHTML = `<video loop muted playsInline>
-	  <source data-src="${href}" type="video/mp4" />
-	</video>`;
-  
-	const video = element.querySelector('video');
-	const source = element.querySelector('video > source');
-  
-	source.src = source.dataset.src;
-	video.load();
-  
-	video.addEventListener('loadeddata', () => {
-	  video.setAttribute('autoplay', true);
-	  video.setAttribute('data-loaded', true);
-	  video.play();
-	});
-  }
-
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
 
 function buildHeroBlock(main) {
+  if (getMetadata('autoblock') === 'false') return;
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -186,22 +168,21 @@ const TEMPLATE_LIST = [
  * @param {Element} main The container element
  */
 async function decorateTemplates(main) {
-  try {
-    const template = getMetadata('template');
-    const templates = TEMPLATE_LIST;
-    if (templates.includes(template)) {
-      const mod = await import(`../templates/${template}/${template}.js`);
-      loadCSS(`${window.hlx.codeBasePath}/templates/${template}/${template}.css`);
-      if (mod.default) {
-        await mod.default(main);
-      }
-    }
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Auto Blocking failed', error);
+	try {
+	  const template = getMetadata('template');
+	  const templates = TEMPLATE_LIST;
+	  if (templates.includes(template)) {
+		const mod = await import(`../templates/${template}/${template}.js`);
+		loadCSS(`${window.hlx.codeBasePath}/templates/${template}/${template}.css`);
+		if (mod.default) {
+		  await mod.default(main);
+		}
+	  }
+	} catch (error) {
+	  // eslint-disable-next-line no-console
+	  console.error('Auto Blocking failed', error);
+	}
   }
-}
-
 
 function autolinkModals(element) {
 	element.addEventListener('click', async (e) => {
@@ -335,7 +316,23 @@ function aggregateTabSectionsIntoComponents(main) {
   });
 }
 
+export function makeVideo(element, href) {
+  element.innerHTML = `<video loop muted playsInline>
+    <source data-src="${href}" type="video/mp4" />
+  </video>`;
 
+  const video = element.querySelector('video');
+  const source = element.querySelector('video > source');
+
+  source.src = source.dataset.src;
+  video.load();
+
+  video.addEventListener('loadeddata', () => {
+    video.setAttribute('autoplay', true);
+    video.setAttribute('data-loaded', true);
+    video.play();
+  });
+}
 
 /**
  * Loads everything needed to get to LCP.
@@ -393,7 +390,7 @@ async function loadEager(doc) {
 	  await waitForLCP(LCP_BLOCKS);
 	}
 
-	/**
+	  /**
    * fix UE meta tag
    */
 	  doc.querySelectorAll('meta').forEach((m) => {
@@ -402,6 +399,7 @@ async function loadEager(doc) {
 		  m.setAttribute('content', `aem:${m.getAttribute('content')}`);
 		}
 	  });
+	
   
 	try {
 	  /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
@@ -435,7 +433,7 @@ async function loadLazy(doc) {
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
 
-await window.hlx.plugins.run('loadLazy', pluginContext);
+  await window.hlx.plugins.run('loadLazy', pluginContext);
 
   // Mark customer as having viewed the page once
   localStorage.setItem('franklin-visitor-returning', true);
@@ -444,7 +442,6 @@ await window.hlx.plugins.run('loadLazy', pluginContext);
     getMetadata,
     toClassName,
   };
-
   // eslint-disable-next-line import/no-relative-packages
   const { initConversionTracking } = await import('../plugins/rum-conversion/src/index.js');
   await initConversionTracking.call(context, document);
@@ -458,6 +455,14 @@ function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
+}
+
+async function loadPage() {
+	await window.hlx.plugins.load('eager', pluginContext);
+	await loadEager(document);
+	await window.hlx.plugins.load('lazy', pluginContext);
+	await loadLazy(document);
+	loadDelayed();
 }
 
 export function addAnchorLink(elem) {
@@ -477,102 +482,96 @@ export function addAnchorLink(elem) {
 	elem.append(link);
   }
 
-  export async function fetchJson(href) {
+export async function fetchJson(href) {
 	const url = new URL(href);
 	try {
-	  const resp = await fetch(
+		const resp = await fetch(
 		url,
 		{
-		  headers: {
+			headers: {
 			'Content-Type': 'text/html',
-		  },
-		  method: 'get',
-		  credentials: 'include',
+			},
+			method: 'get',
+			credentials: 'include',
 		},
-	  );
-	  const error = new Error({
+		);
+		const error = new Error({
 		code: 500,
 		message: 'login error',
-	  });
-	  if (resp.redirected) throw (error);
-  
-	  return resp.json();
-	} catch (error) {
-	  return error;
-	}
-  }
+		});
+		if (resp.redirected) throw (error);
 
-  export async function useGraphQL(query, param) {
-	const configPath = `${window.location.origin}/demo-config.json`;
-	let { data } = await fetchJson(configPath);
-	data = data && data[0];
-	if (!data) {
-	  console.log('config not present'); // eslint-disable-line no-console
-	  return;
-	}
-	const { origin } = window.location;
-  
-	if (origin.includes('.live')) {
-	  data['aem-author'] = data['aem-author'].replace('author', data['hlx.live']);
-	} else if (origin.includes('.page')) {
-	  data['aem-author'] = data['aem-author'].replace('author', data['hlx.page']);
-	}
-	data['aem-author'] = data['aem-author'].replace(/\/+$/, '');
-	const { pathname } = new URL(query);
-	const url = param ? new URL(`${data['aem-author']}${pathname}${param}`) : new URL(`${data['aem-author']}${pathname}`);
-	const options = data['aem-author'].includes('publish')
-	  ? {
-		headers: {
-		  'Content-Type': 'text/html',
-		},
-		method: 'get',
-	  }
-	  : {
-		headers: {
-		  'Content-Type': 'text/html',
-		},
-		method: 'get',
-		credentials: 'include',
-	  };
-	try {
-	  const resp = await fetch(
-		url,
-		options,
-	  );
-  
-	  const error = new Error({
-		code: 500,
-		message: 'login error',
-	  });
-  
-	  if (resp.redirected) throw (error);
-  
-	  const adventures = await resp.json();
-	  const environment = data['aem-author'];
-	  return { adventures, environment }; // eslint-disable-line consistent-return
+		return resp.json();
 	} catch (error) {
-	  console.log(JSON.stringify(error)); // eslint-disable-line no-console
+		return error;
 	}
-  }
-  
-  export function addElement(type, attributes, values = {}) {
-	const element = document.createElement(type);
-  
-	Object.keys(attributes).forEach((attribute) => {
-	  element.setAttribute(attribute, attributes[attribute]);
-	});
-  
-	Object.keys(values).forEach((val) => {
-	  element[val] = values[val];
-	});
-  
-	return element;
-  }
+}
 
-async function loadPage() {
-  await loadEager(document);
-  await loadLazy(document);
-  loadDelayed();
+export async function useGraphQL(query, param) {
+  const configPath = `${window.location.origin}/demo-config.json`;
+  let { data } = await fetchJson(configPath);
+  data = data && data[0];
+  if (!data) {
+    console.log('config not present'); // eslint-disable-line no-console
+    return;
+  }
+  const { origin } = window.location;
+
+  if (origin.includes('.live')) {
+    data['aem-author'] = data['aem-author'].replace('author', data['hlx.live']);
+  } else if (origin.includes('.page')) {
+    data['aem-author'] = data['aem-author'].replace('author', data['hlx.page']);
+  }
+  data['aem-author'] = data['aem-author'].replace(/\/+$/, '');
+  const { pathname } = new URL(query);
+  const url = param ? new URL(`${data['aem-author']}${pathname}${param}`) : new URL(`${data['aem-author']}${pathname}`);
+  const options = data['aem-author'].includes('publish')
+    ? {
+      headers: {
+        'Content-Type': 'text/html',
+      },
+      method: 'get',
+    }
+    : {
+      headers: {
+        'Content-Type': 'text/html',
+      },
+      method: 'get',
+      credentials: 'include',
+    };
+  try {
+    const resp = await fetch(
+      url,
+      options,
+    );
+
+    const error = new Error({
+      code: 500,
+      message: 'login error',
+    });
+
+    if (resp.redirected) throw (error);
+
+    const adventures = await resp.json();
+    const environment = data['aem-author'];
+    return { adventures, environment }; // eslint-disable-line consistent-return
+  } catch (error) {
+    console.log(JSON.stringify(error)); // eslint-disable-line no-console
+  }
+}
+
+export function addElement(type, attributes, values = {}) {
+  const element = document.createElement(type);
+
+  Object.keys(attributes).forEach((attribute) => {
+    element.setAttribute(attribute, attributes[attribute]);
+  });
+
+  Object.keys(values).forEach((val) => {
+    element[val] = values[val];
+  });
+
+  return element;
 }
 
 loadPage();
