@@ -78,6 +78,7 @@
 @media (width <= 500px) {
 	.columns:not(.nav-columns) > div {
         width: 316px;
+		max-width: 316px;
 		flex-direction: column;
 	}
 
