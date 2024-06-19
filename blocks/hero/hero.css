@@ -36,7 +36,7 @@ main .hero-container {
 }
 
 .hero video {
-	height: 100vh;
+	height: 80vh;
 	display: block;
 }
 
