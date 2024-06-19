@@ -36,7 +36,8 @@ main .hero-container {
 }
 
 .hero video {
-	height: 90vh;
+	max-height: 100vh;
+	height: 100%;
 	width: 100%;
 	display: block;
 	object-fit: cover;
