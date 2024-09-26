@@ -2,8 +2,8 @@
 
 
 ## Environments
-- Preview: Preview: https://main--rh--AdobeDevXSC.hlx.page/
-- Live: https://main--rh--AdobeDevXSC.hlx.live/
+- Preview: Preview: https://main--rh2--suladil.aem.page/
+- Live: https://main--rh2--suladil.aem.live/
 
 ## Installation
 
